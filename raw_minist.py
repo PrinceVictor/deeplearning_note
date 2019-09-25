@@ -1,4 +1,4 @@
-import gluonbook as gb
+import d2lzh as gb
 from mxnet import gluon, init
 from mxnet.gluon import loss as gloss, nn
 import mxnet.autograd as ag
@@ -114,6 +114,8 @@ def getDataLoader():
     return mx.gluon.data.DataLoader(train_dataset, batch_size=128, shuffle=True),\
             mx.gluon.data.DataLoader(MinistTestDataset(), batch_size=128, shuffle=False),
 
+def accuracy(y_hat, y): return (y_hat.argmax(axis=1) == y.astype('float32')).mean().asscalar()
+
 net = CRNN()
 net.initialize(init.Normal(sigma=0.01))
 
@@ -138,11 +140,11 @@ for epoch in range(1, num_epochs + 1):
 
         trainer.step(batch_size)
         train_l_sum += l.mean().asscalar()
-        train_acc_sum += gb.accuracy(y_hat, y)
+        train_acc_sum += accuracy(y_hat, y)
     net.collect_params().reset_ctx(mx.cpu())
     test_acc = gb.evaluate_accuracy(test_iter, net)
     net.collect_params().reset_ctx(mx.gpu(0))
     print('epoch %d, loss %.4f, train acc %.3f, test acc %.3f'
           % (epoch, train_l_sum / len(train_iter),
              train_acc_sum / len(train_iter), test_acc))
-    net.collect_params().save("output/%d.params"%(epoch, ))
+    # net.collect_params().save("output/%d.params"%(epoch, ))
