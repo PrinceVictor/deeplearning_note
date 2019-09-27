@@ -125,7 +125,7 @@ train_iter, test_iter = getDataLoader()
 loss = gloss.SoftmaxCrossEntropyLoss()
 net.collect_params().reset_ctx(mx.gpu(0))
 trainer = gluon.Trainer(net.collect_params(), 'sgd', {'learning_rate': 0.1})
-num_epochs = 50
+num_epochs = 5
 """Train and evaluate a model on CPU."""
 for epoch in range(1, num_epochs + 1):
     train_l_sum = 0
@@ -141,10 +141,14 @@ for epoch in range(1, num_epochs + 1):
         trainer.step(batch_size)
         train_l_sum += l.mean().asscalar()
         train_acc_sum += accuracy(y_hat, y)
+        print(X.shape)
+        print(y.shape)
+        print(y_hat.shape)
+
     net.collect_params().reset_ctx(mx.cpu())
     test_acc = gb.evaluate_accuracy(test_iter, net)
     net.collect_params().reset_ctx(mx.gpu(0))
     print('epoch %d, loss %.4f, train acc %.3f, test acc %.3f'
           % (epoch, train_l_sum / len(train_iter),
              train_acc_sum / len(train_iter), test_acc))
-    # net.collect_params().save("output/%d.params"%(epoch, ))
+    net.collect_params().save("output/%d.params" % (epoch, ))

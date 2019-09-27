@@ -6,10 +6,19 @@ import sys
 import time
 import os
 
-print(os.path.abspath('./'))
+import numpy as np
 
-mnist_train = gdata.vision.FashionMNIST(train=True)
-mnist_test = gdata.vision.FashionMNIST(train=False)
+A = np.array([[1,2,3],[4,5,6]])
+
+B = np.array([[1.], [2.], [3.]])
+
+C = np.array([[1.], [2.], [4.]])
+
+print((B == C).mean().asscalar())
+print(B.shape)
+
+# mnist_train = gdata.vision.FashionMNIST(train=True)
+# mnist_test = gdata.vision.FashionMNIST(train=False)
 
 #
 # print(len(mnist_train))
@@ -27,6 +36,5 @@ mnist_test = gdata.vision.FashionMNIST(train=False)
 # plt.imshow(mnist_train[1][0].reshape(28,28).asnumpy())
 # plt.savefig('./image_show2')
 # plt.show()
-
 
 print("success!")
