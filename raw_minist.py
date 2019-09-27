@@ -141,9 +141,6 @@ for epoch in range(1, num_epochs + 1):
         trainer.step(batch_size)
         train_l_sum += l.mean().asscalar()
         train_acc_sum += accuracy(y_hat, y)
-        print(X.shape)
-        print(y.shape)
-        print(y_hat.shape)
 
     net.collect_params().reset_ctx(mx.cpu())
     test_acc = gb.evaluate_accuracy(test_iter, net)
@@ -151,4 +148,4 @@ for epoch in range(1, num_epochs + 1):
     print('epoch %d, loss %.4f, train acc %.3f, test acc %.3f'
           % (epoch, train_l_sum / len(train_iter),
              train_acc_sum / len(train_iter), test_acc))
-    net.collect_params().save("output/%d.params" % (epoch, ))
+    net.collect_params().save("%d.params" % (epoch))
