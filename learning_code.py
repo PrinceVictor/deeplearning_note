@@ -1,21 +1,26 @@
 #matplotlib inline
 import d2lzh as d2l
+import mxnet as mx
 from mxnet.gluon import data as gdata
 import matplotlib.pyplot as plt
 import sys
 import time
 import os
-
+from mxnet import nd
 import numpy as np
+#
+A = nd.array([[1,2,3],[4,5,6]])
+#
+# B = np.array([[1.], [2.], [3.]])
+#
+# C = np.array([[1.], [2.], [4.]])
+#
+# print((B == C).mean().asscalar())
+# print(B.shape)
 
-A = np.array([[1,2,3],[4,5,6]])
+A = A.as_in_context(mx.cpu(3))
 
-B = np.array([[1.], [2.], [3.]])
-
-C = np.array([[1.], [2.], [4.]])
-
-print((B == C).mean().asscalar())
-print(B.shape)
+print(A)
 
 # mnist_train = gdata.vision.FashionMNIST(train=True)
 # mnist_test = gdata.vision.FashionMNIST(train=False)
@@ -25,6 +30,10 @@ print(B.shape)
 # print(len(mnist_test))
 #
 # X, y = mnist_train[10:20]
+# image, label = mnist_train[0]
+# print(image.shape)
+# print(image[:,:,0] > 60)
+
 # d2l.show_fashion_mnist(X, d2l.get_fashion_mnist_labels(y))
 # plt.savefig('./image_show.png')
 # plt.show()

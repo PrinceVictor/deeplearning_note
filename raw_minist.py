@@ -108,9 +108,7 @@ def getDataLoader():
                 start_idx += len(da)
 
     minist_dataset = MinistTrainDataset()
-    char70_dataset = Char70KDataset(root="data/char70k")
-    digital_dataset = DigitalDataset(root="data/digital")
-    train_dataset = ConcatDataset(minist_dataset, char70_dataset, digital_dataset)
+    train_dataset = minist_dataset
     return mx.gluon.data.DataLoader(train_dataset, batch_size=128, shuffle=True),\
             mx.gluon.data.DataLoader(MinistTestDataset(), batch_size=128, shuffle=False),
 
@@ -125,7 +123,7 @@ train_iter, test_iter = getDataLoader()
 loss = gloss.SoftmaxCrossEntropyLoss()
 net.collect_params().reset_ctx(mx.gpu(0))
 trainer = gluon.Trainer(net.collect_params(), 'sgd', {'learning_rate': 0.1})
-num_epochs = 5
+num_epochs = 1
 """Train and evaluate a model on CPU."""
 for epoch in range(1, num_epochs + 1):
     train_l_sum = 0
@@ -148,4 +146,4 @@ for epoch in range(1, num_epochs + 1):
     print('epoch %d, loss %.4f, train acc %.3f, test acc %.3f'
           % (epoch, train_l_sum / len(train_iter),
              train_acc_sum / len(train_iter), test_acc))
-    net.collect_params().save("%d.params" % (epoch))
+    net.collect_params().save("./output_params/%d.params" % (epoch))
