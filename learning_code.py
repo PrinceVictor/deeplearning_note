@@ -8,26 +8,13 @@ import time
 import os
 from mxnet import nd
 import numpy as np
-#
-A = nd.array([[1,2,3],[4,5,6]])
-#
-# B = np.array([[1.], [2.], [3.]])
-#
-# C = np.array([[1.], [2.], [4.]])
-#
-# print((B == C).mean().asscalar())
-# print(B.shape)
 
-A = A.as_in_context(mx.cpu(3))
-
-print(A)
-
-# mnist_train = gdata.vision.FashionMNIST(train=True)
-# mnist_test = gdata.vision.FashionMNIST(train=False)
+mnist_train = gdata.vision.FashionMNIST(train=True)
+mnist_test = gdata.vision.FashionMNIST(train=False)
 
 #
-# print(len(mnist_train))
-# print(len(mnist_test))
+print(len(mnist_train))
+print(len(mnist_test))
 #
 # X, y = mnist_train[10:20]
 # image, label = mnist_train[0]

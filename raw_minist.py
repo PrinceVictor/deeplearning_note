@@ -61,52 +61,6 @@ def getDataLoader():
         def __getitem__(self, item):
             return self.test_data[item], self.test_label[item]
 
-    class DirDataSet(object):
-        def __init__(self, root):
-            self.objs = []
-            for r, _, names in os.walk(root):
-                for name in names:
-                    self.objs.append(os.path.join(r, name))
-
-        def __len__(self):
-            return len(self.objs)
-
-    class Char70KDataset(DirDataSet):
-        def __getitem__(self, item):
-            path = self.objs[item]
-            label = path.split("/")[-2]
-            label = int(label)
-            image = mx.image.imread(path, flag=0).astype('f')
-            image = mx.image.imresize(image, 28, 28)
-            image = image.transpose(axes = (2, 0, 1)) / 255.0
-            image = 1 - image
-            return image.asnumpy(), label
-
-    class DigitalDataset(DirDataSet):
-        def __getitem__(self, item):
-            path = self.objs[item]
-            label = path.split("/")[-2]
-            label = int(label)
-            image = mx.image.imread(path, flag=0).astype('f')
-            image = mx.image.imresize(image, 28, 28)
-            image = image.transpose(axes = (2, 0, 1)) / 255.0
-            return image.asnumpy(), label
-
-
-    class ConcatDataset(object):
-        def __init__(self, *datasets):
-            self.datasets = datasets
-
-        def __len__(self):
-            return sum(len(x) for x in self.datasets)
-
-        def __getitem__(self, idx):
-            start_idx = 0
-            for da in self.datasets:
-                if start_idx <= idx < start_idx + len(da):
-                    return da[idx - start_idx]
-                start_idx += len(da)
-
     minist_dataset = MinistTrainDataset()
     train_dataset = minist_dataset
     return mx.gluon.data.DataLoader(train_dataset, batch_size=128, shuffle=True),\
