@@ -1,36 +1,9 @@
-#matplotlib inline
-import d2lzh as d2l
-import mxnet as mx
-from mxnet.gluon import data as gdata
-import matplotlib.pyplot as plt
-import sys
-import time
-import os
-from mxnet import nd
-import numpy as np
+import torch
 
-mnist_train = gdata.vision.FashionMNIST(train=True)
-mnist_test = gdata.vision.FashionMNIST(train=False)
+x = torch.rand(5, 3)
 
-#
-print(len(mnist_train))
-print(len(mnist_test))
-#
-# X, y = mnist_train[10:20]
-# image, label = mnist_train[0]
-# print(image.shape)
-# print(image[:,:,0] > 60)
+print('x: {}'.format(x))
 
-# d2l.show_fashion_mnist(X, d2l.get_fashion_mnist_labels(y))
-# plt.savefig('./image_show.png')
-# plt.show()
+print('x size: {}'.format(x.size()))
 
-# flg1 = plt.figure(1)
-# plt.imshow(mnist_train[0][0].reshape(28,28).asnumpy())
-# plt.savefig('./image_show1')
-# flg2 = plt.figure(2)
-# plt.imshow(mnist_train[1][0].reshape(28,28).asnumpy())
-# plt.savefig('./image_show2')
-# plt.show()
-
-print("success!")
+print('x check: {}'.format(x.shape[0]))
