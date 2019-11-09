@@ -3,6 +3,7 @@ import cv2
 
 import numpy as np
 import argparse
+import xml_read
 
 def from_xywh_to_points(x, y, width, height):
     pp1 = tuple([[x, y]])
@@ -65,12 +66,17 @@ def draw_points(image, x, y, w, h, color='r'):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Draw bbox on images")
     parser.add_argument("--source_file", type=str, default="1.jpg")
+    parser.add_argument("--xml_file", type=str, default="1.xml")
     args = parser.parse_args()
 
-    image_1 = cv2.imread(args.source_file)
-    # image_1 = draw_bbox(image_1, 185, 226, 219, 33, score=0.7, class_name='bbox', color='b')
-    image_1 = draw_points(image_1, 185, 226, 219, 33, color='r')
-    cv2.imshow('1', image_1)
-    cv2.waitKey(0)
-    cv2.imwrite('result1.jpg', image_1)
+    bboxs = xml_read.xml_read(args.xml_file)
+
+    for i, bbox in enumerate(bboxs):
+        image_1 = cv2.imread(args.source_file)
+        image_1 = draw_bbox(image_1, bbox[0], bbox[1], bbox[2], bbox[3], score=0.7, class_name='gt', color='g')
+        image_1 = draw_bbox(image_1, 185+2, 226+2, 219+3, 32, score=0.7, class_name='bbox', color='r')
+        # image_1 = draw_points(image_1, 185, 226, 219, 33, color='r')
+        cv2.imshow('1', image_1)
+        cv2.waitKey(0)
+        cv2.imwrite('result1.jpg', image_1)
 
