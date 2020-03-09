@@ -3,7 +3,7 @@ import cv2
 
 import numpy as np
 import argparse
-import xml_read
+from xml_read import xml_read
 
 def from_xywh_to_points(x, y, width, height):
     pp1 = tuple([[x, y]])
