@@ -1,4 +1,17 @@
 import numpy as np
+import cv2
+
+import sys
+# sys.path.append('/home/victor/darling/deeplearning_note')
+sys.path.append('.')
+print('path {}' .format(sys.path))
+
+from draw_bbox import  draw_by_opencv as cv_draw
+
+img = cv2.imread('left.png')
+img = cv_draw.draw_bbox(img, 10, 10, 20 ,5)
+cv2.imshow('test', img)
+# cv2.waitKey(0)
 
 x = np.arange(6)
 print('x: {}'.format(x))
@@ -115,21 +128,26 @@ print(a[2::-1]) ### 取从下标为2的元素翻转读取
 # print(x)
 # print (x[[4,2,1,7]])
 
-import numpy as np
-# 坐标向量
-a = np.arange(10)
-# 坐标向量
-b = np.arange(5)
-# 从坐标向量中返回坐标矩阵
-# 返回list,有两个元素,第一个元素是X轴的取值,第二个元素是Y轴的取值
-col, row = np.meshgrid(a,b)
-print(row, '\n', col)
-t = np.stack([col, row])
-print("------------")
-print(t)
-print(t.shape)
-t = t.reshape(2, -1)
-print(t)
-print(t.shape)
-print(t.T)
+# import numpy as np
+# # 坐标向量
+# a = np.arange(10)
+# # 坐标向量
+# b = np.arange(5)
+# # 从坐标向量中返回坐标矩阵
+# # 返回list,有两个元素,第一个元素是X轴的取值,第二个元素是Y轴的取值
+# col, row = np.meshgrid(a,b)
+# print(row, '\n', col)
+# t = np.stack([col, row])
+# print("------------")
+# print(t)
+# print(t.shape)
+# t = t.reshape(2, -1)
+# print(t)
+# print(t.shape)
+# print(t.T)
 
+test = np.arange(9*2)
+test = test.reshape(3,-1)
+print(test)
+test = test.reshape(3,3)
+print(test)

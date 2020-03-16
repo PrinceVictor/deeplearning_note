@@ -52,7 +52,7 @@ def draw_bbox(image,
         else:
             display_str += 'score:{:.2f}'.format(score)
 
-    cv2.rectangle(image, left_top, right_bottom, rgb, line_width, cv2.LINE_8)
+    cv2.rectangle(image, left_top, right_bottom, color, line_width, cv2.LINE_8)
 
     bottom_left = (left_top[0], left_top[1] + height + 12)
 
