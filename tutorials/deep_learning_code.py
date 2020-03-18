@@ -1,54 +1,73 @@
 import torch
-import  numpy as np
+import numpy as np
 
-a = torch.Tensor([[2, 3], [4, 8], [7, 9]])
-print('a is {}' .format(a))
-print('a size {}' .format(a.size()))
-print('a size {}' .format(a.size(0)))
+a = np.random.randint(0,5, [5,2])
 
-b = a.numpy()
-# c = torch.from_numpy(b)
-c = torch.Tensor(b)
-print('b is {}' .format(b))
-print('c is {}' .format(c))
+a = a.astype(float)
+print(a)
+print(np.mean(a, axis=0))
+# a = torch.tensor(a).float()
+# print(a.shape)
+# print(len(a))
+# print(a.mean(dim=1))
+# a = a.squeeze()
+# a = torch.squeeze(a, 0)
+# print(a.shape)
+# print(a)
+# a = torch.max(a, 1)
+# # a.max(1, keepdim=True)[1]
+# # print(a.shape)
+# print(a)
+# print(a[1])
 
-# if torch.cuda.is_available():
-#     c = c.cuda()
-#     print('c cuda {}' .format(c))
-row = np.arange(2)
-col = np.arange(3)
-disp = np.random.randint(1,10,(2,3))
-col, row = np.meshgrid(col, row)
-matrix = np.stack((col, row, disp))
-print('matrix \n{}' .format(matrix))
-print(matrix.shape)
-
-# matrix = matrix.reshape(3, -1)
-# print('matrix reshape\n{}' .format(matrix))
-
-x = torch.Tensor(matrix)
-print('x is \n{}' .format(x))
-print('x size {}' .format(x.size()))
+# a = torch.Tensor([[2, 3], [4, 8], [7, 9]])
+# print('a is {}' .format(a))
+# print('a size {}' .format(a.size()))
+# print('a size {}' .format(a.size(0)))
 #
-# print(x[:, -1])
-### torch.view similar with numpy.reshape()
-print((x.view(3, -1)))
-
-# variable wae deprecated
-# x = torch.ones(2, 2, requires_grad= True)
+# b = a.numpy()
+# # c = torch.from_numpy(b)
+# c = torch.Tensor(b)
+# print('b is {}' .format(b))
+# print('c is {}' .format(c))
+#
+# # if torch.cuda.is_available():
+# #     c = c.cuda()
+# #     print('c cuda {}' .format(c))
+# row = np.arange(2)
+# col = np.arange(3)
+# disp = np.random.randint(1,10,(2,3))
+# col, row = np.meshgrid(col, row)
+# matrix = np.stack((col, row, disp))
+# print('matrix \n{}' .format(matrix))
+# print(matrix.shape)
+#
+# # matrix = matrix.reshape(3, -1)
+# # print('matrix reshape\n{}' .format(matrix))
+#
+# x = torch.Tensor(matrix)
 # print('x is \n{}' .format(x))
+# print('x size {}' .format(x.size()))
+# #
+# # print(x[:, -1])
+# ### torch.view similar with numpy.reshape()
+# print((x.view(3, -1)))
 #
-# y = x + 2
-# print('y is \n{}' .format(y))
-
-x = torch.randn(3, requires_grad=True)
-
-y = x * 2
-y = y.sum()
-
-print(x)
-print(y)
-
-y.backward()
-print(x.grad)
+# # variable wae deprecated
+# # x = torch.ones(2, 2, requires_grad= True)
+# # print('x is \n{}' .format(x))
+# #
+# # y = x + 2
+# # print('y is \n{}' .format(y))
+#
+# x = torch.randn(3, requires_grad=True)
+#
+# y = x * 2
+# y = y.sum()
+#
+# print(x)
+# print(y)
+#
+# y.backward()
+# print(x.grad)
 
