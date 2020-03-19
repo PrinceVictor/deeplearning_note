@@ -24,6 +24,14 @@ def mnist_dataset(transform, train=False):
 
     return dataset
 
+def mnist_dataset(transform, train=False):
+    dataset = torchvision.datasets.FashionMNIST(root='/home/victor/darling/deeplearning_note/dataset/fashionmnist',
+                                         train=train,
+                                         download=False,
+                                         transform=transform)
+
+    return dataset
+
 
 if __name__ == "__main__":
     image = (Image.open('../left.png'))

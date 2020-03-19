@@ -50,7 +50,7 @@ if __name__ == '__main__':
     img = 255 - torch.Tensor(img).float().to(device)
     img = torch.unsqueeze(img.unsqueeze(0), 0)
     print('img size {} type {}'.format(img.shape, img.type()))
-    
+
     with torch.no_grad():
         model.eval()
         output = (model(img)).cpu()
