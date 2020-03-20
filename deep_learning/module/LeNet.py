@@ -11,6 +11,8 @@ class LeNet(nn.Module):
         self.conv1 = nn.Conv2d(1, 6, kernel_size=5)
         self.pool = nn.MaxPool2d(kernel_size=2)
         self.conv2 = nn.Conv2d(6, 16, kernel_size=5)
+        self.activate = nn.ReLU()
+        # self.activate = nn.LeakyReLU()
 
         self.fc1 = nn.Linear(16*5*5, 120)
         self.fc2 = nn.Linear(120, 84)
@@ -18,10 +20,10 @@ class LeNet(nn.Module):
 
     def forward(self, input):
 
-        temp = self.pool(F.relu(self.conv1(input)))
-        temp = self.pool(F.relu(self.conv2(temp)))
+        temp = self.pool(self.activate(self.conv1(input)))
+        temp = self.pool(self.activate(self.conv2(temp)))
         temp = temp.view(-1, 16*5*5)
-        temp = F.relu(self.fc1(temp))
-        temp = F.relu(self.fc2(temp))
+        temp = self.activate(self.fc1(temp))
+        temp = self.activate(self.fc2(temp))
         output = self.fc3(temp)
         return output

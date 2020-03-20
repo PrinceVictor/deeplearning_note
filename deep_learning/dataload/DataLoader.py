@@ -8,6 +8,9 @@ import dataload.preprocess as preprocess
 minist_classes = ('zero', 'one', 'two', 'three',
            'four', 'five', 'six', 'seven', 'eight', 'nine')
 
+fashionminst_classes = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat', 'Sandal',
+               'Shirt', 'Sneaker', 'Bag', 'Ankle boot']
+
 # class Default_dataset(Dataset):
 #
 #     def __init__(self):
@@ -24,7 +27,7 @@ def mnist_dataset(transform, train=False):
 
     return dataset
 
-def mnist_dataset(transform, train=False):
+def fashionmnist_dataset(transform, train=False):
     dataset = torchvision.datasets.FashionMNIST(root='/home/victor/darling/deeplearning_note/dataset/fashionmnist',
                                          train=train,
                                          download=False,
