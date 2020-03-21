@@ -70,7 +70,7 @@ def trainnet(model, device, train_loader, optimizer, lr_shedule, epoch, loss_lis
 
     lr_shedule.step()
     accuracy = 100. * correct / len(train_loader.dataset)
-    print('Train set: Accuracy: {}/{} ({:.0f}%)\n'.format(
+    print('Train set: Accuracy: {}/{} ({:.0f}%)'.format(
         correct, len(train_loader.dataset), accuracy))
 
 def testnet(model, device, test_loader, accuracy_list):
@@ -105,10 +105,11 @@ if __name__ == '__main__':
            'train epoch {}\n'
            'device {}' .format(save_path, EPOCHS, device))
 
-    process = preprocess.get_transform((28, 28), argument=False)
+    train_process = preprocess.get_transform((28, 28), argument=False)
+    test_process = preprocess.get_transform((28, 28), argument=False)
 
-    trainset = DataLoader.fashionmnist_dataset(process, train=True)
-    testset = DataLoader.fashionmnist_dataset(process, train=False)
+    trainset = DataLoader.fashionmnist_dataset(train_process, train=True)
+    testset = DataLoader.fashionmnist_dataset(test_process, train=False)
 
     trainloader = torch.utils.data.DataLoader(trainset,
                                               batch_size=Batchsize,
@@ -140,11 +141,11 @@ if __name__ == '__main__':
     total_params = sum(p.numel() for p in model.parameters())
     print('total parameters {}' .format(total_params))
 
-    # optimizer = optim.SGD([{'params': model.parameters(), 'initial_lr': 0.001}], lr=0.001, momentum=0.8)
-    optimizer = optim.Adam([{'params': model.parameters(), 'initial_lr': 0.001}],
-                           lr=0.001, betas=(0.9, 0.999), eps=1e-08, weight_decay=0)
+    optimizer = optim.SGD([{'params': model.parameters(), 'initial_lr': 0.001}], lr=0.001, momentum=0.8)
+    # optimizer = optim.Adam([{'params': model.parameters(), 'initial_lr': 0.001}],
+    #                        lr=0.001, betas=(0.9, 0.999), eps=1e-08, weight_decay=0)
     # optimizer = optim.Adam(model.parameters(), lr=0.001)
-    lr_shedule = lr_scheduler.MultiStepLR(optimizer, milestones=[25, 40], gamma=0.1, last_epoch=args.last_epoch)
+    lr_shedule = lr_scheduler.MultiStepLR(optimizer, milestones=[], gamma=0.1, last_epoch=args.last_epoch)
     lr_shedule.step()
 
     loss_list = []
