@@ -144,7 +144,6 @@ if __name__ == '__main__':
     optimizer = optim.SGD([{'params': model.parameters(), 'initial_lr': 0.001}], lr=0.001, momentum=0.8)
     # optimizer = optim.Adam([{'params': model.parameters(), 'initial_lr': 0.001}],
     #                        lr=0.001, betas=(0.9, 0.999), eps=1e-08, weight_decay=0)
-    # optimizer = optim.Adam(model.parameters(), lr=0.001)
     lr_shedule = lr_scheduler.MultiStepLR(optimizer, milestones=[], gamma=0.1, last_epoch=args.last_epoch)
     lr_shedule.step()
 

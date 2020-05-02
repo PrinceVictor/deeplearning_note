@@ -1,17 +1,36 @@
 import torch
 import numpy as np
+import torch.nn as nn
+import time
 
-a = np.random.randint(0,5, [5,2])
+  # With square kernels and equal stride
+input = torch.randn(2, 1, 6, 6)
+print(input.size())
+conv = nn.Conv2d(1, 1, (3, 3), stride=2, padding=0, bias=False)
+output = conv(input)
+print(output.size())
+up_conv = nn.ConvTranspose2d(1, 1, (3,3), stride=2, padding=0, output_padding=1 ,bias=False)
+input = up_conv(output)
+print(input.size())
+# print(input)
+# input = input.repeat(2)
+# print(input.size())
+# print(input)
+# x = F.interpolate(input, scale_factor=2, mode='bilinear', align_corners=False)
+# print(x.shape)
 
-a = a.astype(float)
-print(a)
-print(np.mean(a, axis=0))
+# print('i {}' .format(i) for i in range(4))
+# a = np.random.randint(0,5, [1,1,5,2])
+#
+# a = a.astype(float)
+# print(a.transpose().shape)
+# # print(np.mean(a, axis=0))
 # a = torch.tensor(a).float()
-# print(a.shape)
-# print(len(a))
-# print(a.mean(dim=1))
-# a = a.squeeze()
-# a = torch.squeeze(a, 0)
+# # print(a.shape)
+# # print(len(a))
+# # print(a.mean(dim=1))
+# # a = a.squeeze()
+# a = torch.squeeze(a)
 # print(a.shape)
 # print(a)
 # a = torch.max(a, 1)
